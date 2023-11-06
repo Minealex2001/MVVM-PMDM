@@ -8,20 +8,31 @@
         android:id="@+id/capital"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/capital"/>
+        android:hint="Capital"/>
     <EditText
         android:id="@+id/plazo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/plazo"/>
+        android:hint="Plazo"/>
     <Button
         android:id="@+id/calcular"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/calcular_cuota_mensual"/>
-    <TextView
-        android:id="@+id/cuota"
+        android:text="Calcular cuota mensual"/>
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/cuota"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="48sp"
+            android:gravity="center"/>
+        <ProgressBar
+            android:id="@+id/calculando"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:gravity="center"/>
+    </FrameLayout>
 </LinearLayout>
