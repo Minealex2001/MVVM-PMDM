@@ -1,6 +1,5 @@
 package com.alejandro.mvvm;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,30 +15,37 @@ import android.view.ViewGroup;
 import com.alejandro.mvvm.databinding.FragmentMiHipotecaBinding;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link MiHipotecaFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * MiHipotecaFragment
+ * Clase que representa la vista principal de la aplicación.
+ * Esta clase se encarga de mostrar la vista principal de la aplicación.
  */
 public class MiHipotecaFragment extends Fragment {
 
+    // Variable que representa el binding de la vista.
     private FragmentMiHipotecaBinding binding;
 
+    /**
+     * Constructor de la clase.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return (binding = FragmentMiHipotecaBinding.inflate(inflater, container, false)).getRoot();
     }
 
+    /**
+     * Método que se ejecuta cuando la vista se ha creado.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Instanciamos el ViewModel.
         final MiHipotecaViewModel miHipotecaViewModel = new ViewModelProvider(this).get(MiHipotecaViewModel.class);
 
+        // Asignamos el ViewModel al binding.
         binding.calcular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 double capital = Double.parseDouble(binding.capital.getText().toString());
                 int plazo = Integer.parseInt(binding.plazo.getText().toString());
 
@@ -47,6 +53,7 @@ public class MiHipotecaFragment extends Fragment {
             }
         });
 
+        // Observamos los cambios en el ViewModel.
         miHipotecaViewModel.cuota.observe(getViewLifecycleOwner(), new Observer<Double>() {
             @Override
             public void onChanged(Double cuota) {
@@ -54,6 +61,7 @@ public class MiHipotecaFragment extends Fragment {
             }
         });
 
+        // Observamos los cambios en el ViewModel.
         miHipotecaViewModel.errorCapital.observe(getViewLifecycleOwner(), new Observer<Double>() {
             @Override
             public void onChanged(Double capitalMinimo) {

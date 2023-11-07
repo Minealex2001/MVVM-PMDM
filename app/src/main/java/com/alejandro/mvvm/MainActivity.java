@@ -4,6 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+/**
+ * MainActivity
+ * Clase que representa la vista principal de la aplicación.
+ * Esta clase se encarga de mostrar la vista principal de la aplicación.
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override
