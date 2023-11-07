@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Calcular cuota mensual"/>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -35,4 +36,5 @@
             android:visibility="gone"
             android:gravity="center"/>
     </FrameLayout>
+
 </LinearLayout>

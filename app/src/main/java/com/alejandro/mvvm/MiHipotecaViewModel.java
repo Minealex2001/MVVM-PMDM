@@ -1,22 +1,27 @@
 package com.alejandro.mvvm;
+
 import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.alejandro.mvvm.SimuladorHipoteca;
+
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+
 public class MiHipotecaViewModel extends AndroidViewModel {
 
-    Executor executor;
+    MutableLiveData<Double> cuota = new MutableLiveData<>();
+    MutableLiveData<Double> errorCapital = new MutableLiveData<>();
+    MutableLiveData<Integer> errorPlazos = new MutableLiveData<>();
+    MutableLiveData<Boolean> calculando = new MutableLiveData<>();
 
     SimuladorHipoteca simulador;
 
-    public MutableLiveData<Double> cuota = new MutableLiveData<>();
-    public MutableLiveData<Double> errorCapital = new MutableLiveData<>();
-    public MutableLiveData<Integer> errorPlazos = new MutableLiveData<>();
-    public MutableLiveData<Boolean> calculando = new MutableLiveData<>();
+    Executor executor;
+
 
     public MiHipotecaViewModel(@NonNull Application application) {
         super(application);
@@ -32,7 +37,6 @@ public class MiHipotecaViewModel extends AndroidViewModel {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-
                 simulador.calcular(solicitud, new SimuladorHipoteca.Callback() {
                     @Override
                     public void cuandoEsteCalculadaLaCuota(double cuotaResultante) {
@@ -40,7 +44,6 @@ public class MiHipotecaViewModel extends AndroidViewModel {
                         errorPlazos.postValue(null);
                         cuota.postValue(cuotaResultante);
                     }
-
                     @Override
                     public void cuandoHayaErrorDeCapitalInferiorAlMinimo(double capitalMinimo) {
                         errorCapital.postValue(capitalMinimo);
@@ -50,6 +53,7 @@ public class MiHipotecaViewModel extends AndroidViewModel {
                     public void cuandoHayaErrorDePlazoInferiorAlMinimo(int plazoMinimo) {
                         errorPlazos.postValue(plazoMinimo);
                     }
+
                     @Override
                     public void cuandoEmpieceElCalculo() {
                         calculando.postValue(true);
@@ -63,4 +67,5 @@ public class MiHipotecaViewModel extends AndroidViewModel {
             }
         });
     }
+
 }

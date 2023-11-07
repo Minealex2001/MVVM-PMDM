@@ -2,7 +2,7 @@ package com.alejandro.mvvm;
 
 public class SimuladorHipoteca {
 
-    public static class Solicitud {
+    public static class Solicitud{
         public double capital;
         public int plazo;
 
@@ -21,18 +21,19 @@ public class SimuladorHipoteca {
     }
 
     public void calcular(Solicitud solicitud, Callback callback) {
+
+        callback.cuandoEmpieceElCalculo();
+
         double interes = 0;
         double capitalMinimo = 0;
         int plazoMinimo = 0;
 
-        callback.cuandoEmpieceElCalculo();
-
-        try {
-            Thread.sleep(2500);  // long run operation
+        try{
+            Thread.sleep(10000);
             interes = 0.01605;
             capitalMinimo = 1000;
             plazoMinimo = 2;
-        } catch (InterruptedException e) {}
+        }catch (InterruptedException e){}
 
         boolean error = false;
         if (solicitud.capital < capitalMinimo) {
@@ -48,6 +49,7 @@ public class SimuladorHipoteca {
         if(!error) {
             callback.cuandoEsteCalculadaLaCuota(solicitud.capital * interes / 12 / (1 - Math.pow(1 + (interes / 12), -solicitud.plazo * 12)));
         }
+
         callback.cuandoFinaliceElCalculo();
     }
 }

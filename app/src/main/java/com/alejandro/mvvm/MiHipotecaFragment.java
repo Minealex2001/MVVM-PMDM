@@ -1,22 +1,32 @@
 package com.alejandro.mvvm;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import com.alejandro.mvvm.databinding.FragmentMiHipotecaBinding;
 
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link MiHipotecaFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
 public class MiHipotecaFragment extends Fragment {
+
     private FragmentMiHipotecaBinding binding;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         return (binding = FragmentMiHipotecaBinding.inflate(inflater, container, false)).getRoot();
     }
 
@@ -43,6 +53,7 @@ public class MiHipotecaFragment extends Fragment {
                 binding.cuota.setText(String.format("%.2f",cuota));
             }
         });
+
         miHipotecaViewModel.errorCapital.observe(getViewLifecycleOwner(), new Observer<Double>() {
             @Override
             public void onChanged(Double capitalMinimo) {
@@ -64,6 +75,7 @@ public class MiHipotecaFragment extends Fragment {
                 }
             }
         });
+
         miHipotecaViewModel.calculando.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean calculando) {
